@@ -9,10 +9,12 @@ namespace Game.BaseClass
     /// </summary>
     public class BaseActor : BaseObject
     {
+        public GameObject m_FBX;
+        
         //AI控制
 
         //普通控制
-        public GameObject m_FBX;
+        public BaseCtrl m_Ctrl;
 
         public override void Init(int uid)
         {
@@ -56,19 +58,19 @@ namespace Game.BaseClass
 
         protected Animator animator;
 
-        public void PlayAnim(string condition, float speed = 0)
+        public void PlayAnim(string condition, float speed = 1)
         {
             animator.speed = speed;
             animator.SetTrigger(condition);
         }
 
-        public void PlayAnimInt(string condition, int value, float speed = 0)
+        public void PlayAnimInt(string condition, int value, float speed = 1)
         {
             animator.speed = speed;
             animator.SetInteger(condition, value);
         }
 
-        public void PlayAnimFloat(string condition, float value, float speed = 0)
+        public void PlayAnimFloat(string condition, float value, float speed = 1)
         {
             animator.speed = speed;
             animator.SetFloat(condition, value);
@@ -122,6 +124,7 @@ namespace Game.BaseClass
             if (m_StateFuncs.ContainsKey(m_CurState) && m_StateFuncs[m_CurState].enterFunc != null)
             {
                 m_StateFuncs[m_CurState].enterFunc(param);
+                Debug.Log("Enter " + m_CurState + " state");
             }
 
             m_StateTimer = 0f;
@@ -162,7 +165,9 @@ namespace Game.BaseClass
         /// </summary>
         public void Turn(float angle, float duration)
         {
-
+            Quaternion rot = Quaternion.AngleAxis(angle, Vector3.up);
+            //TweenRotation.Begin(base.gameObject, duration, rot);
+            this.m_Direction = (Vector3)(rot * Vector3.forward);
         }
 
         /// <summary>

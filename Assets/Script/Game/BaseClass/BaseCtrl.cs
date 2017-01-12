@@ -72,20 +72,20 @@ namespace Game.BaseClass
 
         public int Uid
         {
-            get{ return uid; }
+            get { return uid; }
         }
 
         public string Name
         {
-            get{ return m_Name; }
+            get { return m_Name; }
         }
 
         public bool IsAwake
         {
-            get{ return m_bAwake; }
-            set{ m_bAwake = value; }
+            get { return m_bAwake; }
+            set { m_bAwake = value; }
         }
-
+        
         public delegate void StateFunc(float delta);
     }
 }

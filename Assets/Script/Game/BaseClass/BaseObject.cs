@@ -17,18 +17,24 @@ namespace Game.BaseClass
 
         protected Dictionary<eCmd, OnMsgFunc> m_MsgFuncs = new Dictionary<eCmd, OnMsgFunc>();
 
-        public int GetUid()
+        public int Uid
         {
-            return m_Uid;
+            get
+            {
+                return m_Uid;
+            }
         }
 
-        public string GetName()
+        public string Name
         {
-            return m_Name;
-        }
-        public void SetName(string name)
-        {
-            m_Name = name;
+            get
+            {
+                return m_Name;
+            }
+            set
+            {
+                m_Name = value;
+            }
         }
 
         public virtual void Init(int uid)
@@ -73,14 +79,17 @@ namespace Game.BaseClass
             }
         }
 
+        protected void OnEnable()
+        {
+            Enable(Vector3.zero);
+        }
+
         protected void Update()
         {
             this.UpdateObj(Time.deltaTime);
         }
 
-        protected virtual void UpdateObj(float delta)
-        {
-        }
+        protected virtual void UpdateObj(float delta) { }
 
         public delegate void OnMsgFunc(IBaseMsgData bmd);
     }

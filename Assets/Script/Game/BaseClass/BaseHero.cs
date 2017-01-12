@@ -25,7 +25,7 @@ namespace Game.BaseClass
         /// </summary>
         public GameObject[] m_TrailEffs = new GameObject[2];
 
-        public float m_MoveSpeed = 5.0f;
+        public float m_MoveSpeed = 4.0f;
         public float m_RushSpeed = 8.0f;
         public float m_RushTime = 0.5f;
 
@@ -143,7 +143,7 @@ namespace Game.BaseClass
         /// </summary>
         public virtual void Attack_Enter(StateParam param)
         {
-            PlayAnim("DoAttack" + m_CurAttackIdx, 1.6f);
+            PlayAnim("DoAttack" + (m_CurAttackIdx + 1), 1.6f);
         }
 
         public virtual void Attack_Update(float delta) 
@@ -276,5 +276,43 @@ namespace Game.BaseClass
                 ChangeState(eState.Attack, null);
             }
         }
+
+        public virtual void OnWakeEnd()
+        {
+            ChangeState(eState.Idle);
+        }
+        public virtual void OnAttackedHit() { }
+        public virtual void OnAttackStart() { }
+        public virtual void OnAttackEnd()
+        {
+            ChangeState(eState.Idle);
+        }
+        public virtual void OnAttackMoveStart()
+        {
+            gameObject.GetComponent<Rigidbody>().velocity = m_Direction * 3;
+        }
+        public virtual void OnAttackMoveEnd()
+        {
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        public virtual void OnAttackOn(int uid) { }
+        public virtual void OnDashAttackOn() { }
+        public virtual void OnDashAttackEnd() { }
+        public virtual void OnSkillMoveStart(int uid) { }
+        public virtual void OnSkillSlowStart(int uid) { }
+        public virtual void OnSkillMoveEnd() { }
+        public virtual void OnSkillSlowEnd() { }
+        public virtual void OnSkillEnd() { }
+        public virtual void OnSkillPlayEff(int effId) { }
+        public virtual void OnSkillOn(int uid) { }
+        public virtual void OnSkillOn() { }
+        public virtual void OnRunLeft() { }
+        public virtual void OnRunRight() { }
+        public virtual void OnJump() { }
+        public virtual void OnDown() { }
+        public virtual void HeroQteTrigger(int uid) { }
+        public virtual void OnBlurOn() { }
+        public virtual void OnBlurEnd() { }
+        public virtual void OnTimeScaleChange() { }
     }
 }

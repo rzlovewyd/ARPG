@@ -38,7 +38,7 @@ namespace Game.Helper
         {
             Move_MsgData data = new Move_MsgData
             { 
-                cmd = eCmd.Idle,
+                cmd = eCmd.Move,
                 dir = dir,
                 pos = pos,
                 sender = sender,
@@ -51,7 +51,7 @@ namespace Game.Helper
         {
             MoveTo_MsgData data = new MoveTo_MsgData
             { 
-                cmd = eCmd.Idle,
+                cmd = eCmd.MoveTo,
                 pos = pos,
                 targetPos = targetPos,
                 sender = sender,
@@ -66,7 +66,7 @@ namespace Game.Helper
         {
             Attack_MsgData data = new Attack_MsgData
             { 
-                cmd = eCmd.Idle,
+                cmd = eCmd.Attack,
                 dir = dir,
                 pos = pos,
                 sender = sender,
