@@ -167,5 +167,10 @@ namespace Game.BaseClass
         Rush,               //冲刺
         Rebirth,            //重生
         Attack,             //攻击
+        //战士技能
+        PowerSlash,         //猛击
+        ShockWave,          //冲击波
+        FatalCircle,        //致命圈
+        ShadowDance,        //影舞
     }
 }

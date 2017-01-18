@@ -52,8 +52,8 @@ namespace Game.BaseClass
         {
             #if UNITY_EDITOR
             m_JoyDir.y = 0f;
-            m_JoyDir.x = -Input.GetAxis ("Vertical");
-            m_JoyDir.z = Input.GetAxis ("Horizontal");
+            m_JoyDir.z = Input.GetAxis ("Vertical");
+            m_JoyDir.x = Input.GetAxis ("Horizontal");
             #endif
         }
 
@@ -61,6 +61,22 @@ namespace Game.BaseClass
         {
             #if UNITY_EDITOR
             m_bHoldAttack = Input.GetAxis("Fire1") > 0f;
+            if(Input.GetKeyDown(KeyCode.J))
+            {
+                OnUseActiveSkill(SkillID.PowerSlash);
+            }
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                OnUseActiveSkill(SkillID.ShockWave);
+            }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                OnUseActiveSkill(SkillID.FatalCircle);
+            }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                OnUseActiveSkill(SkillID.ShadowDance);
+            }
             #endif
         }
 
@@ -85,7 +101,13 @@ namespace Game.BaseClass
         }
         public virtual void Move_Update(float delta)
         {
-            if(IsAvailJoyDir())
+            if (m_bHoldAttack)
+            {
+                m_CurAttackIdx = 0;
+                m_bReserveNextAttack = false;
+                SendObjMsgHelper.SendMsg_Attack(m_Hero.Name, m_Hero.Name, m_JoyDir, m_Hero.transform.position, m_CurAttackIdx);
+            }
+            else if (IsAvailJoyDir())
             {
                 SendObjMsgHelper.SendMsg_Move(m_Hero.Name, m_Hero.Name, m_JoyDir, transform.position);
             }
@@ -102,6 +124,29 @@ namespace Game.BaseClass
         {
             //BaseHero中的OnAttackEnd动画回调会切换到idle状态
             m_bReserveNextAttack = m_bHoldAttack && m_CurAttackIdx < m_AttackIdxMax;
+        }
+
+        /// <summary>
+        /// 使用技能
+        /// </summary>
+        public virtual void OnUseActiveSkill(SkillID skillId)
+        {
+            m_CurAttackIdx = 0;
+            m_bHoldAttack = false;
+            m_bReserveNextAttack = false;
+        }
+
+        /// <summary>
+        /// 获取攻击朝向
+        /// </summary>
+        public virtual Vector3 GetAttackDir()
+        {
+            if (IsAvailJoyDir())
+            {
+                return m_JoyDir;
+            }
+
+            return m_Hero.GetDirection();
         }
 
         /// <summary>
@@ -122,8 +167,8 @@ namespace Game.BaseClass
         public virtual void OnAttackMoveEnd() { m_Hero.OnAttackMoveEnd(); }
         public virtual void OnDashAttackOn() { m_Hero.OnDashAttackOn(); }
         public virtual void OnDashAttackEnd() { m_Hero.OnDashAttackEnd(); }
-        public virtual void OnSkillMoveStart(int uid) { m_Hero.OnSkillMoveStart(uid); }
-        public virtual void OnSkillSlowStart(int uid) { m_Hero.OnSkillSlowStart(uid); }
+        public virtual void OnSkillMoveStart(float moveSpeed) { m_Hero.OnSkillMoveStart(moveSpeed); }
+        public virtual void OnSkillSlowStart(float animSpeed) { m_Hero.OnSkillSlowStart(animSpeed); }
         public virtual void OnSkillMoveEnd() { m_Hero.OnSkillMoveEnd(); }
         public virtual void OnSkillSlowEnd() { m_Hero.OnSkillSlowEnd(); }
         public virtual void OnSkillEnd() { m_Hero.OnSkillEnd(); }

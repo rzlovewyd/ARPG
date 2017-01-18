@@ -34,6 +34,11 @@ namespace Game.BaseClass
         /// </summary>
         protected int m_CurAttackIdx;
 
+        /// <summary>
+        /// 技能Id
+        /// </summary>
+        protected SkillID m_CurSkillId;
+
         public override void Init(int uid)
         {
             base.Init(uid);
@@ -143,7 +148,7 @@ namespace Game.BaseClass
         /// </summary>
         public virtual void Attack_Enter(StateParam param)
         {
-            PlayAnim("DoAttack" + (m_CurAttackIdx + 1), 1.6f);
+            PlayAnim("DoAttack" + (m_CurAttackIdx + 1), 1.3f);
         }
 
         public virtual void Attack_Update(float delta) 
@@ -298,11 +303,17 @@ namespace Game.BaseClass
         public virtual void OnAttackOn(int uid) { }
         public virtual void OnDashAttackOn() { }
         public virtual void OnDashAttackEnd() { }
-        public virtual void OnSkillMoveStart(int uid) { }
-        public virtual void OnSkillSlowStart(int uid) { }
+        public virtual void OnSkillMoveStart(float moveSpeed) { }
+        public virtual void OnSkillSlowStart(float animSpeed) { }
         public virtual void OnSkillMoveEnd() { }
         public virtual void OnSkillSlowEnd() { }
-        public virtual void OnSkillEnd() { }
+        public virtual void OnSkillEnd()
+        {
+            if (!IsDead())
+            {
+                ChangeState(eState.Idle);
+            }
+        }
         public virtual void OnSkillPlayEff(int effId) { }
         public virtual void OnSkillOn(int uid) { }
         public virtual void OnSkillOn() { }

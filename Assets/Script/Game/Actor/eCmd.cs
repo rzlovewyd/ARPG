@@ -31,7 +31,7 @@
     WhirlWindMove,
     ElectricWind,
     ElectricWindMove,
-    ShockWave,      //电波流
+    ShockWave,      //冲击流
     ShadowDance,    //影舞
     FatalCircle,    //夺命圈
     //待补充
@@ -66,4 +66,13 @@
     //沙漠Boss技能
     SandStorm,
     MultiPunch,
+}
+
+public enum SkillID
+{
+    //战士
+    PowerSlash,    //猛击
+    ShockWave,     //电击波
+    FatalCircle,   //致命圈
+    ShadowDance,   //影舞
 }

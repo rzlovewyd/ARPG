@@ -60,8 +60,6 @@ namespace Game.Helper
             SendObjMsg(eCmd.MoveTo, data);
         }
 
-
-
         public static void SendMsg_Attack(string receiver, string sender, Vector3 dir, Vector3 pos, int attackIdx)
         {
             Attack_MsgData data = new Attack_MsgData
@@ -74,6 +72,72 @@ namespace Game.Helper
                 attackIdx = attackIdx,
             };
             SendObjMsg(eCmd.Attack, data);
+        }
+
+        /// <summary>
+        /// 猛砍
+        /// </summary>
+        public static void SendMsg_PowerSlash(string receiver, string sender, Vector3 dir, Vector3 pos)
+        {
+            PowerSlash_MsgData data = new PowerSlash_MsgData
+            {
+                cmd = eCmd.PowerSlash,
+                sender = sender,
+                receiver = receiver,
+                dir = dir,
+                pos = pos,
+            };
+            SendObjMsg(eCmd.PowerSlash, data);
+        }
+
+        /// <summary>
+        /// 冲击波
+        /// </summary>
+        public static void SendMsg_ShockWave(string receiver, string sender, Vector3 dir, Vector3 pos)
+        {
+            ShockWave_MsgData data = new ShockWave_MsgData
+            {
+                cmd = eCmd.ShockWave,
+                sender = sender,
+                receiver = receiver,
+                dir = dir,
+                pos = pos,
+            };
+            SendObjMsg(eCmd.ShockWave, data);
+        }
+
+        /// <summary>
+        /// 夺命圈
+        /// </summary>
+        public static void SendMsg_FatalCircle(string receiver, string sender, Vector3 dir, Vector3 pos, float range)
+        {
+            FatalCircle_MsgData data = new FatalCircle_MsgData
+            {
+                cmd = eCmd.FatalCircle,
+                sender = sender,
+                receiver = receiver,
+                dir = dir,
+                pos = pos,
+                range = range,
+            };
+            SendObjMsg(eCmd.FatalCircle, data);
+        }
+
+        /// <summary>
+        /// 影舞
+        /// </summary>
+        public static void SendMsg_ShadowDance(string receiver, string sender, Vector3 dir, Vector3 pos, int hitCount)
+        {
+            ShadowDance_MsgData data = new ShadowDance_MsgData
+            {
+                cmd = eCmd.ShadowDance,
+                sender = sender,
+                receiver = receiver,
+                dir = dir,
+                pos = pos,
+                hitCount = hitCount,
+            };
+            SendObjMsg(eCmd.ShadowDance, data);
         }
 
         private static bool SendObjMsg(eCmd cmd, IBaseMsgData data)
